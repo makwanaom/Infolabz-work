@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universities through API</title>
+   <style>
+    table {
+        border-collapse: collapse;
+    }
+    tr,td {
+       border: 1px solid #ddd;
+       padding: 1rem;
+    }
+   </style>
+</head>
+<body>
+    <div class="table-container">
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>SR NO</th>
+                    <th>UNIVERSITY NAME</th>
+                    <th>STATE-PROVINCE</th>
+                    <th>WEBSITE-LINK</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const tableBody = document.getElementById("table-body");
+
+        fetch("http://universities.hipolabs.com/search?country=india")
+          .then(response => response.json())
+          .then(data => {
+            let srNo = 1;
+            data.forEach(university => {
+              const tableRow = `
+                <tr>
+                  <td>${srNo}</td>
+                  <td>${university.name}</td>
+                  <td>${university['state-province']}</td>
+                  <td><a href="${university.web_pages[0]}" target="_blank">Visit Site</a></td>
+                </tr>
+              `;
+              tableBody.innerHTML += tableRow;
+              srNo++;
+            });
+          });
+    </script>
+</body>
+</html>

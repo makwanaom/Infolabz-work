@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>COVID-19 Cases</title>
+</head>
+<body>
+  <script>
+    const myobject = {
+      "states": {
+        "Gujarat": "Ahmedabad",
+        "Maharashtra": "Mumbai",
+        "Rajasthan": "Jaipur"
+      },
+      "cases": {
+        "Maharashtra": [5, 10, 15] 
+      }
+    };
+
+    document.write("Gujarat: " + myobject.states.Gujarat + "<br>");
+    document.write("Rajasthan - Day 2 Cases: " + myobject.cases.Maharashtra[1] + "<br>"); 
+
+    for (const state in myobject.states) {
+      document.write(state + ": " + myobject.states[state] + "<br>");
+    }
+
+    const cases = {
+      "Ahmedabad": [12, 8, 5],
+      "Rajkot": [7, 5, 3],
+      "Surat": [10, 9, 7]
+    };
+
+    for (const city in cases) {
+      document.write(city + ": New Cases: " + cases[city][0] + ", Recovered: " +  cases[city][1] + ", Deaths: " + cases[city][2] + "<br>");
+    }
+  </script>
+
+  <table>
+    <tr>
+      <th>City</th>
+      <th>New Cases</th>
+      <th>Recovered</th>
+      <th>Deaths</th>
+    </tr>
+    
+    <script>
+      for (const city in cases) {
+        document.write("<tr><td>" + city + "</td><td>" + cases[city][0] + "</td><td>" + cases[city][1] + "</td><td>" + cases[city][2] + "</td></tr>");
+      }
+    </script>
+  </table>
+  
+</body>
+</html>

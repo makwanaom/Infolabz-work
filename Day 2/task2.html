@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Covid-19 India Data</title>
+  <style>
+    table {
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div id="form-container">
+    <form id="covid-form">
+      <label for="date">Date:</label>
+      <input type="date" id="date" name="date"><br><br>
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+  <div id="table-container"></div>
+
+  <script>
+    const tableContainer = document.getElementById("table-container");
+    const form = document.getElementById("covid-form");
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const date = document.getElementById("date").value;
+      fetch('https://data.covid19india.org/data.json')
+        .then(response => response.json())
+        .then(data => {
+          const casesTimeSeries = data.cases_time_series;
+          const filteredData = casesTimeSeries.find(item => item.dateymd === date);
+          if (filteredData) {
+            const tableHTML = `
+              <table>
+                <tr>
+                  <th>New Cases</th>
+                  <td>${filteredData.dailyconfirmed}</td>
+                </tr>
+                <tr>
+                  <th>New Deaths</th>
+                  <td>${filteredData.dailydeceased}</td>
+                </tr>
+              </table>
+            `;
+            tableContainer.innerHTML = tableHTML;
+          } else {
+            tableContainer.innerHTML = "No data found for the selected date.";
+          }
+        });
+    });
+  </script>
+</body>
+</html>

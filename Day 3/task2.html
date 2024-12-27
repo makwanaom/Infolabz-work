@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Spacecraft Search</title>
+  </head>
+  <body>
+    <h1>Spacecraft Search</h1>
+    <input id="spacecraft-name" type="text" placeholder="Enter spacecraft name">
+    <button onclick="searchSpacecraft()">Search</button>
+    <div id="result"></div>
+
+    <script>
+      function searchSpacecraft() {
+        const spacecraftName = document.getElementById("spacecraft-name").value;
+        fetch("https://isro.vercel.app/api/spacecrafts")
+          .then(response => response.json())
+          .then(data => {
+            const spacecrafts = data.spacecrafts;
+            const found = spacecrafts.find(spacecraft => spacecraft.name === spacecraftName);
+            if (found) {
+              document.getElementById("result").innerHTML = `Spacecraft found: ${spacecraftName}`;
+            } else {
+              document.getElementById("result").innerHTML = `Spacecraft not found: ${spacecraftName}`;
+            }
+          })
+          .catch(error => console.error(error));
+      }
+    </script>
+  </body>
+</html>

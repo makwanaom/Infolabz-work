@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fetching Live Data : API Data</title>
+</head>
+<body>
+    <h1>COVID-19 Data</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>SR NO</th>
+                <th>STATE NAME</th>
+                <th>CONFIRMED CASES</th>
+                <th>RECOVERED CASES</th>
+                <th>DEATH CASES</th>
+            </tr>
+        </thead>
+        <tbody id="data">
+           
+        </tbody>
+    </table>
+
+    <script>
+        async function load() {
+            let url = "https://data.covid19india.org/data.json";
+            let response = await fetch(url);
+            let data = await response.json();
+            let statewiseData = data.statewise;
+            let tableBody = document.getElementById("data");
+
+            statewiseData.forEach((state, index) => {
+                if (index === 0) return; 
+
+                let row = `<tr>
+                    <td>${index}</td>
+                    <td>${state.state}</td>
+                    <td>${state.confirmed}</td>
+                    <td>${state.recovered}</td>
+                    <td>${state.deaths}</td>
+                </tr>`;
+                tableBody.innerHTML += row;
+            });
+        }
+
+        load();
+    </script>
+</body>
+</html>

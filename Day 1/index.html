@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check even or odd</title>
+</head>
+<body>
+    <div>
+        Check here if the number is even or odd.
+    </div>
+
+    <form id="formSubmit">
+        <input type="number" id="numberInput" placeholder="Enter a number" required />
+        <input type="submit" value="Check" />
+    </form>
+
+    <script>
+        const formSubmit = document.getElementById('formSubmit');
+        
+        formSubmit.addEventListener('submit', (event) => {
+            event.preventDefault(); 
+            
+            const number = document.getElementById('numberInput').value;
+            
+            const checkEvenOrOdd = (num) => {
+                if (num % 2 === 0) {
+                    document.write(`The number ${num} is even.`);
+                } else {
+                    document.write(`The number ${num} is odd.`);
+                }
+            };
+            
+            checkEvenOrOdd(number);
+        });
+    </script>
+</body>
+</html>

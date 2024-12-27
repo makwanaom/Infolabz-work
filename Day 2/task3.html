@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mutual Fund Scheme</title>
+  <style>
+    table {
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div id="form-container">
+    <form id="mf-form">
+      <label for="schemeCode">Mutual Fund Scheme Code:</label>
+      <input type="number" id="schemeCode" name="schemeCode"><br><br>
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+  <div id="table-container"></div>
+
+  <script>
+    const tableContainer = document.getElementById("table-container");
+    // const new_Api = process.env.API_KEY
+    const form = document.getElementById("mf-form");
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const schemeCode = document.getElementById("schemeCode").value;
+      fetch('https://api.mfapi.in/mf')
+       .then(response => response.json())
+       .then(data => {
+          const scheme = data.find(item => item.schemeCode === parseInt(schemeCode));
+          if (scheme) {
+            const tableHTML = `
+              <table>
+                <tr>
+                  <th>Scheme Name</th>
+                  <td>${scheme.schemeName}</td>
+                </tr>
+              </table>
+            `;
+            tableContainer.innerHTML = tableHTML;
+          } else {
+            tableContainer.innerHTML = "Scheme not found.";
+          }
+        });
+    });
+  </script>
+</body>
+</html>
